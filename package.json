@@ -1,0 +1,16 @@
+{
+  "name": "assam-tea-digirise-portfolio",
+  "version": "1.0.0",
+  "description": "Premium scroll-storytelling web experience — Designed & Developed by DigiRise India",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["tea", "luxury", "digirise", "portfolio"],
+  "author": "Satyam Kumar — DigiRise India (https://wa.me/917439133880)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
+
