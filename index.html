@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASSAM TEA — Steeped in Silence</title>
+
+  <!-- SEO & Portfolio Meta -->
+  <meta name="description" content="ASSAM TEA — A premium digital experience. Designed & Developed by DigiRise India, Kolkata's leading digital growth agency." />
+  <meta name="author" content="Satyam Kumar — DigiRise India" />
+  <meta name="designer" content="DigiRise India" />
+  <meta name="developer" content="Satyam Kumar, DigiRise India" />
+  <meta name="copyright" content="© 2026 DigiRise India. All rights reserved." />
+  <meta property="og:title" content="ASSAM TEA — Steeped in Silence" />
+  <meta property="og:description" content="A premium scroll-storytelling web experience. Crafted by DigiRise India." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#030303" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --amber: rgba(245,158,11,1);
+      --amber-faint: rgba(245,158,11,0.12);
+      --amber-mid: rgba(245,158,11,0.5);
+      --amber-strong: rgba(245,158,11,0.8);
+      --amber-glow: rgba(245,158,11,0.92);
+      --gold-light: rgba(255,196,80,1);
+      --white: #ffffff;
+      --off-white: #f5f0e8;
+      --black: #030303;
+      --black-soft: #0a0a0a;
+      --digirise-gold: #f5a623;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    #cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: var(--amber);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+      mix-blend-mode: difference;
+    }
+    #cursor-ring {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(245,158,11,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: all 0.18s ease;
+    }
+    body:hover #cursor { opacity: 1; }
+
+    /* ── LOADING SCREEN ── */
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      gap: 28px;
+      transition: opacity 0.9s ease;
+    }
+    #loading-screen.fade-out { opacity: 0; pointer-events: none; }
+
+    #loading-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(245,158,11,0.5);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+
+    #loading-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 400;
+      color: var(--amber);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+
+    #loading-bar-wrap {
+      width: 220px;
+      height: 1px;
+      background: rgba(245,158,11,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    #loading-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--amber-mid), var(--amber));
+      transition: width 0.1s linear;
+    }
+
+    #loading-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    #loading-credit {
+      position: absolute;
+      bottom: 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: rgba(245,158,11,0.3);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ── FIXED HEADER ── */
+    #site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 200;
+      background: transparent;
+      transition: background 0.4s;
+    }
+    #site-header.scrolled {
+      background: rgba(3,3,3,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,158,11,0.08);
+    }
+    #header-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--amber);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+    #header-nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--amber);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .nav-link:hover { color: var(--amber); }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    /* ── SCROLL PROGRESS BAR ── */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 2px;
+      height: 100vh;
+      background: rgba(245,158,11,0.08);
+      z-index: 100;
+    }
+    #scroll-progress-fill {
+      width: 100%;
+      height: 0%;
+      background: linear-gradient(to bottom, var(--amber-mid), var(--amber));
+      transition: height 0.05s linear;
+    }
+
+    /* ── HERO / VIDEO SECTION ── */
+    #hero {
+      height: 800vh;
+      position: relative;
+    }
+    #hero-sticky {
+      position: sticky;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #video-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    #source-video {
+      display: none;
+      position: absolute;
+    }
+
+    /* Vignette overlay */
+    #hero-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(3,3,3,0.55) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ── TEXT OVERLAYS ── */
+    .text-overlay {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      text-shadow: 0 0 60px rgba(0,0,0,0.9), 0 0 120px rgba(0,0,0,0.7);
+      will-change: opacity, transform;
+      z-index: 10;
+    }
+
+    /* Overlay 1: ASSAM TEA title */
+    #ov-title {
+      top: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(60px, 8vw, 120px);
+      font-weight: 400;
+      color: var(--amber-glow);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    #ov-title-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      color: rgba(245,158,11,0.5);
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    /* Overlay 2: ancient wisdom */
+    #ov-wisdom {
+      bottom: 15%;
+      left: 8%;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(26px, 3.2vw, 46px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.45;
+    }
+    #ov-wisdom .word { opacity: 0; display: inline; transition: opacity 0.4s; }
+
+    /* Overlay 3: centuries of craft */
+    #ov-craft {
+      top: 20%;
+      right: 8%;
+      text-align: right;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(22px, 2.8vw, 40px);
+      font-weight: 400;
+      color: var(--amber-strong);
+      line-height: 1.45;
+      transform: translateX(60px);
+    }
+
+    /* Overlay 4: nature transform */
+    #ov-nature {
+      bottom: 8%;
+      left: 8%;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+    }
+
+    /* Overlays 5,6,7: Pour Wait Breathe */
+    #ov-pour-wrap {
+      left: 8%;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pwb-word {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 5.5vw, 70px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.92);
+      opacity: 0;
+      display: block;
+      letter-spacing: 0.04em;
+    }
+
+    /* Overlay 8: three minutes */
+    #ov-minutes {
+      top: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 300;
+      color: rgba(245,158,11,0.88);
+      white-space: nowrap;
+      line-height: 1.55;
+    }
+
+    /* Overlay 9: SEREN */
+    #ov-seren {
+      bottom: 12%;
+      right: 8%;
+      text-align: right;
+    }
+    #ov-seren-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 6vw, 80px);
+      font-weight: 400;
+      color: var(--white);
+      display: block;
+      line-height: 1;
+      letter-spacing: 0.05em;
+    }
+    #ov-seren-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(15px, 2vw, 26px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      display: block;
+      margin-top: 10px;
+      letter-spacing: 0.12em;
+    }
+    .char { opacity: 0; display: inline; }
+
+    /* Overlay 10: Begin Ritual button */
+    #ov-ritual {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      text-align: center;
+    }
+    #ritual-btn {
+      display: block;
+      padding: 20px 54px;
+      background: transparent;
+      border: 1px solid var(--amber-mid);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.88);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: background 0.35s, border-color 0.35s, letter-spacing 0.3s;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+    #ritual-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(245,158,11,0.06) 100%);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+    #ritual-btn:hover {
+      background: rgba(245,158,11,0.1);
+      border-color: var(--amber);
+      letter-spacing: 0.28em;
+    }
+    #ritual-btn:hover::before { opacity: 1; }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,158,11,0.2), transparent);
+    }
+
+    /* ── PRODUCT CAROUSEL ── */
+    #collection {
+      background: var(--black);
+      padding: 130px 0 110px;
+    }
+    #collection-header {
+      text-align: center;
+      margin-bottom: 70px;
+      padding: 0 40px;
+    }
+    #collection-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      margin-bottom: 18px;
+    }
+    #collection-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 5.5vw, 68px);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.1;
+    }
+    #collection-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      margin-top: 16px;
+    }
+
+    #cards-track {
+      display: flex;
+      gap: 32px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 calc((100vw - (390px * 3 + 32px * 2)) / 2);
+      padding-bottom: 44px;
+      scrollbar-width: none;
+    }
+    #cards-track::-webkit-scrollbar { display: none; }
+
+    .tea-card {
+      flex: 0 0 390px;
+      height: 640px;
+      scroll-snap-align: center;
+      border-radius: 2px;
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s cubic-bezier(0.16,1,0.3,1);
+      cursor: none;
+    }
+
+    .card-img-wrap {
+      margin: -40px -36px 24px;
+      height: 230px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .tea-card:hover .card-img-wrap img { transform: scale(1.04); }
+
+    .card-img-fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      pointer-events: none;
+    }
+    .card-dawn .card-img-fade { background: linear-gradient(to bottom, transparent, #1a0f00); }
+    .card-dusk .card-img-fade { background: linear-gradient(to bottom, transparent, #0a0a0a); }
+    .card-night .card-img-fade { background: linear-gradient(to bottom, transparent, #050510); }
+
+    .tea-card:hover { transform: translateY(-14px); }
+
+    .card-dawn {
+      background: linear-gradient(160deg, #1a0f00, #2d1a00);
+      border-top: 1px solid var(--amber);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.65);
+    }
+    .card-dawn:hover {
+      box-shadow: 0 28px 70px rgba(245,158,11,0.2), 0 0 0 1px rgba(245,158,11,0.45);
+    }
+
+    .card-dusk {
+      background: linear-gradient(160deg, #0a0a0a, #1a0a00);
+      box-shadow: 0 0 0 1px rgba(245,158,11,0.28), 0 8px 40px rgba(0,0,0,0.65);
+    }
+    .card-dusk:hover {
+      box-shadow: 0 0 0 1px rgba(245,158,11,0.7), 0 28px 70px rgba(245,158,11,0.24);
+    }
+
+    .card-night {
+      background: linear-gradient(160deg, #050510, #0a0a1a);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.85);
+    }
+    .card-night:hover {
+      box-shadow: 0 28px 70px rgba(100,100,220,0.14), 0 0 0 1px rgba(255,255,255,0.14);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 198px;
+      right: 36px;
+      z-index: 2;
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 500;
+      color: var(--amber);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border: 1px solid rgba(245,158,11,0.38);
+      padding: 5px 11px;
+      background: rgba(3,3,3,0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 76px;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 10px;
+      letter-spacing: 0.03em;
+    }
+    .card-dawn .card-name, .card-dusk .card-name { color: var(--amber); }
+    .card-night .card-name { color: var(--white); }
+
+    .card-blend {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin-bottom: 20px;
+    }
+
+    .card-divider {
+      width: 36px;
+      height: 1px;
+      background: rgba(245,158,11,0.28);
+      margin-bottom: 20px;
+    }
+
+    .card-ingredients {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+      flex: 1;
+    }
+
+    .card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 400;
+      color: var(--white);
+      margin-top: 24px;
+      margin-bottom: 18px;
+    }
+
+    .card-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: transparent;
+      border: 1px solid rgba(245,158,11,0.35);
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: background 0.3s, border-color 0.3s, color 0.3s, letter-spacing 0.3s;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-btn:hover {
+      background: rgba(245,158,11,0.1);
+      border-color: var(--amber);
+      color: var(--white);
+      letter-spacing: 0.28em;
+    }
+
+    .card-meta {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* ── ABOUT / STORY STRIP ── */
+    #story-strip {
+      background: linear-gradient(135deg, #0a0800, #030303);
+      padding: 100px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(245,158,11,0.1);
+      border-bottom: 1px solid rgba(245,158,11,0.1);
+    }
+    .story-stat {
+      text-align: center;
+    }
+    .story-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 56px;
+      font-weight: 400;
+      color: var(--amber);
+      line-height: 1;
+      display: block;
+    }
+    .story-stat-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-top: 10px;
+      display: block;
+    }
+    .story-divider-vert {
+      width: 1px;
+      height: 60px;
+      background: rgba(245,158,11,0.15);
+    }
+
+    /* ── NEWSLETTER ── */
+    #newsletter {
+      position: relative;
+      padding: 130px 40px;
+      text-align: center;
+      background-color: #070500;
+      overflow: hidden;
+    }
+    #newsletter::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(245,158,11,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    #newsletter-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: rgba(245,158,11,0.5);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    #newsletter-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 4.8vw, 56px);
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 18px;
+      line-height: 1.15;
+    }
+    #newsletter-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.08em;
+      margin-bottom: 52px;
+    }
+    #newsletter-form {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    #email-input {
+      width: 340px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(245,158,11,0.4);
+      padding: 14px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--white);
+      outline: none;
+      letter-spacing: 0.06em;
+      transition: border-color 0.3s;
+    }
+    #email-input::placeholder { color: rgba(255,255,255,0.2); }
+    #email-input:focus { border-color: var(--amber); }
+    #newsletter-btn {
+      background: transparent;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--amber);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: none;
+      padding-bottom: 14px;
+      position: relative;
+      transition: color 0.3s, letter-spacing 0.3s;
+    }
+    #newsletter-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 12px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--amber);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    #newsletter-btn:hover { letter-spacing: 0.28em; }
+    #newsletter-btn:hover::after { transform: scaleX(1); }
+
+    /* ── FOOTER ── */
+    #footer {
+      border-top: 1px solid rgba(245,158,11,0.1);
+      padding: 40px 40px 32px;
+      background: #020202;
+    }
+    #footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    #footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--amber);
+      letter-spacing: 0.18em;
+    }
+    #footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.06em;
+    }
+    #footer-social {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.12em;
+      display: flex;
+      gap: 20px;
+    }
+    #footer-social span {
+      cursor: none;
+      transition: color 0.3s;
+    }
+    #footer-social span:hover { color: var(--amber); }
+
+    #footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    #footer-copy {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.18);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── DIGIRISE CREDIT BADGE (THE MONEY MAKER) ── */
+    #digirise-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border: 1px solid rgba(245,158,11,0.25);
+      background: rgba(245,158,11,0.04);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.3s, background 0.3s;
+      backdrop-filter: blur(4px);
+    }
+    #digirise-badge:hover {
+      border-color: rgba(245,158,11,0.6);
+      background: rgba(245,158,11,0.08);
+    }
+    #digirise-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--amber);
+      border-radius: 50%;
+      animation: pulse-dot 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+    #digirise-badge-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    #digirise-badge-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 8px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    #digirise-badge-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--amber);
+      letter-spacing: 0.12em;
+    }
+
+    /* ── FLOATING DIGIRISE CTA (Bottom Right) ── */
+    #floating-cta {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 500;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+    }
+    #floating-cta.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    #floating-cta-tooltip {
+      background: rgba(3,3,3,0.9);
+      border: 1px solid rgba(245,158,11,0.25);
+      padding: 8px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      transform: translateX(8px);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    #floating-cta:hover #floating-cta-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    #floating-cta-btn {
+      width: 52px;
+      height: 52px;
+      background: var(--black);
+      border: 1px solid rgba(245,158,11,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: none;
+      text-decoration: none;
+      transition: border-color 0.3s, background 0.3s;
+      position: relative;
+    }
+    #floating-cta-btn::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border: 1px solid rgba(245,158,11,0.12);
+      animation: ring-pulse 3s ease-in-out infinite;
+    }
+    @keyframes ring-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0; transform: scale(1.3); }
+    }
+    #floating-cta-btn:hover {
+      border-color: var(--amber);
+      background: rgba(245,158,11,0.08);
+    }
+    #floating-cta-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--amber);
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    #grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9990;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      body { cursor: auto; }
+      #cursor, #cursor-ring { display: none; }
+      #site-header { padding: 0 20px; }
+      #cards-track { padding: 0 20px 40px; }
+      #story-strip { gap: 40px; padding: 70px 24px; }
+      .story-divider-vert { display: none; }
+      #newsletter { padding: 90px 24px; }
+      #email-input { width: 100%; }
+      #footer { padding: 32px 24px 24px; }
+      #footer-top { flex-direction: column; gap: 16px; }
+      #footer-bottom { flex-direction: column; gap: 10px; }
+      #floating-cta { bottom: 20px; right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- GRAIN -->
+  <div id="grain"></div>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- LOADING SCREEN -->
+  <div id="loading-screen">
+    <div id="loading-eyebrow">A DigiRise India Experience</div>
+    <div id="loading-title">ASSAM TEA</div>
+    <div id="loading-bar-wrap">
+      <div id="loading-bar-fill"></div>
+    </div>
+    <div id="loading-label">Preparing your ritual...</div>
+    <div id="loading-credit">Crafted by DigiRise India &nbsp;·&nbsp; Kolkata</div>
+  </div>
+
+  <!-- FIXED HEADER -->
+  <header id="site-header">
+    <div id="header-logo">Assam Tea</div>
+    <nav id="header-nav">
+      <a class="nav-link" href="#collection">Shop</a>
+      <a class="nav-link" href="#newsletter">Ritual</a>
+    </nav>
+  </header>
+
+  <!-- SCROLL PROGRESS BAR -->
+  <div id="scroll-progress">
+    <div id="scroll-progress-fill"></div>
+  </div>
+
+  <!-- HERO VIDEO SECTION -->
+  <section id="hero">
+    <div id="hero-sticky">
+      <canvas id="video-canvas"></canvas>
+      <video id="source-video" muted playsinline preload="auto" crossorigin="anonymous">
+        <source src="tea-story-final.mp4" type="video/mp4" />
+      </video>
+      <div id="hero-vignette"></div>
+
+      <div class="text-overlay" id="ov-title">
+        ASSAM TEA
+        <span id="ov-title-sub">Steeped in Silence</span>
+      </div>
+
+      <div class="text-overlay" id="ov-wisdom">
+        <span class="word">A&nbsp;</span><span class="word">single&nbsp;</span><span class="word">bag.</span><br/>
+        <span class="word">Ancient&nbsp;</span><span class="word">wisdom&nbsp;</span><span class="word">inside.</span>
+      </div>
+
+      <div class="text-overlay" id="ov-craft">
+        Six ingredients.<br/>Centuries of craft.
+      </div>
+
+      <div class="text-overlay" id="ov-nature">Watch nature transform.</div>
+
+      <div class="text-overlay" id="ov-pour-wrap">
+        <span class="pwb-word" id="ov-pour">Pour.</span>
+        <span class="pwb-word" id="ov-wait">Wait.</span>
+        <span class="pwb-word" id="ov-breathe">Breathe.</span>
+      </div>
+
+      <div class="text-overlay" id="ov-minutes">
+        Three minutes.<br/>That is all it takes.
+      </div>
+
+      <div class="text-overlay" id="ov-seren">
+        <span id="ov-seren-title"></span>
+        <span id="ov-seren-sub"></span>
+      </div>
+
+      <div class="text-overlay" id="ov-ritual">
+        <button id="ritual-btn" onclick="document.getElementById('collection').scrollIntoView({behavior:'smooth'})">
+          BEGIN YOUR RITUAL &rarr;
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PRODUCT CAROUSEL -->
+  <section id="collection">
+    <div id="collection-header">
+      <div id="collection-eyebrow">The Collection</div>
+      <div id="collection-heading">Choose your ritual.</div>
+      <div id="collection-sub">Three blends. Three moments. One origin.</div>
+    </div>
+
+    <div id="cards-track">
+      <!-- DAWN -->
+      <div class="tea-card card-dawn">
+        <div class="card-img-wrap">
+          <img src="dawn-product.png" alt="Dawn blend — Morning Clarity" loading="lazy" />
+          <div class="card-img-fade"></div>
+        </div>
+        <div class="card-name">DAWN</div>
+        <div class="card-blend">Morning Clarity Blend</div>
+        <div class="card-divider"></div>
+        <div class="card-ingredients">Tulsi &nbsp;·&nbsp; Rose &nbsp;·&nbsp; Cardamom &nbsp;·&nbsp; Green tea.</div>
+        <div class="card-price">&#8377; 890</div>
+        <button class="card-btn">Add to Ritual</button>
+        <div class="card-meta">15 Bags &nbsp;&middot;&nbsp; Organic &nbsp;&middot;&nbsp; Assam Origin</div>
+      </div>
+
+      <!-- DUSK -->
+      <div class="tea-card card-dusk">
+        <div class="card-img-wrap">
+          <img src="dusk-product.png" alt="Dusk blend — Evening Unwind" loading="lazy" />
+          <div class="card-img-fade"></div>
+        </div>
+        <div class="card-badge">Bestseller</div>
+        <div class="card-name">DUSK</div>
+        <div class="card-blend">Evening Unwind Blend</div>
+        <div class="card-divider"></div>
+        <div class="card-ingredients">Chamomile &nbsp;·&nbsp; Rose &nbsp;·&nbsp; Cardamom &nbsp;·&nbsp; Black tea.</div>
+        <div class="card-price">&#8377; 950</div>
+        <button class="card-btn">Add to Ritual</button>
+        <div class="card-meta">15 Bags &nbsp;&middot;&nbsp; Organic &nbsp;&middot;&nbsp; Assam Origin</div>
+      </div>
+
+      <!-- NIGHT -->
+      <div class="tea-card card-night">
+        <div class="card-img-wrap">
+          <img src="night-product.png" alt="Night blend — Deep Rest" loading="lazy" />
+          <div class="card-img-fade"></div>
+        </div>
+        <div class="card-name">NIGHT</div>
+        <div class="card-blend">Deep Rest Blend</div>
+        <div class="card-divider"></div>
+        <div class="card-ingredients">Ashwagandha &nbsp;·&nbsp; Rose &nbsp;·&nbsp; Lavender &nbsp;·&nbsp; White tea.</div>
+        <div class="card-price">&#8377; 1,050</div>
+        <button class="card-btn">Add to Ritual</button>
+        <div class="card-meta">15 Bags &nbsp;&middot;&nbsp; Organic &nbsp;&middot;&nbsp; Assam Origin</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- STORY STRIP -->
+  <section id="story-strip">
+    <div class="story-stat">
+      <span class="story-stat-num">1823</span>
+      <span class="story-stat-label">Year of Origin</span>
+    </div>
+    <div class="story-divider-vert"></div>
+    <div class="story-stat">
+      <span class="story-stat-num">6</span>
+      <span class="story-stat-label">Ingredients per blend</span>
+    </div>
+    <div class="story-divider-vert"></div>
+    <div class="story-stat">
+      <span class="story-stat-num">3</span>
+      <span class="story-stat-label">Minutes to ritual</span>
+    </div>
+    <div class="story-divider-vert"></div>
+    <div class="story-stat">
+      <span class="story-stat-num">100%</span>
+      <span class="story-stat-label">Organic &amp; sourced</span>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter">
+    <div id="newsletter-eyebrow">The Inner Circle</div>
+    <div id="newsletter-title">Join the ceremony.</div>
+    <div id="newsletter-sub">Be the first to know. No noise. Only ritual.</div>
+    <form id="newsletter-form" onsubmit="return false;">
+      <input id="email-input" type="email" placeholder="Your email address" autocomplete="email" />
+      <button id="newsletter-btn">Begin &rarr;</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div id="footer-top">
+      <div>
+        <div id="footer-logo">Assam Tea</div>
+        <div id="footer-tagline" style="margin-top:6px;">Rooted in the hills.</div>
+      </div>
+      <a id="digirise-badge" href="https://wa.me/917439133880?text=Hi%20DigiRise%20India!%20I%20saw%20your%20portfolio%20work%20and%20I'm%20interested." target="_blank" rel="noopener">
+        <div id="digirise-badge-dot"></div>
+        <div id="digirise-badge-text">
+          <span id="digirise-badge-label">Designed &amp; Developed by</span>
+          <span id="digirise-badge-name">DigiRise India</span>
+        </div>
+      </a>
+      <div id="footer-social">
+        <span onclick="window.open('https://www.instagram.com','_blank')">Instagram</span>
+        <span onclick="window.open('https://www.youtube.com','_blank')">YouTube</span>
+      </div>
+    </div>
+    <div id="footer-bottom">
+      <div id="footer-copy">&copy; 2026 Assam Tea. All rights reserved.</div>
+      <div id="footer-copy" style="color:rgba(245,158,11,0.25);">
+        Premium digital experience by <strong style="color:rgba(245,158,11,0.5);font-weight:400;">DigiRise India</strong> &nbsp;&middot;&nbsp; Satyam Kumar &nbsp;&middot;&nbsp; Kolkata
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING CTA -->
+  <div id="floating-cta">
+    <div id="floating-cta-tooltip">Like this? Let's build yours →</div>
+    <a id="floating-cta-btn" href="https://wa.me/917439133880?text=Hi%20Satyam!%20I%20saw%20your%20Assam%20Tea%20portfolio%20and%20I%20want%20a%20similar%20website%20for%20my%20brand." target="_blank" rel="noopener" title="Contact DigiRise India">
+      <!-- WhatsApp icon -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ── CUSTOM CURSOR ── */
+    const cursor     = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mx = -100, my = -100;
+    let rx = -100, ry = -100;
+
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    (function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      cursorRing.style.left = rx + 'px';
+      cursorRing.style.top  = ry + 'px';
+      requestAnimationFrame(animRing);
+    })();
+
+    document.querySelectorAll('a, button, .tea-card, .nav-link').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width  = '18px';
+        cursor.style.height = '18px';
+        cursorRing.style.width  = '56px';
+        cursorRing.style.height = '56px';
+        cursorRing.style.borderColor = 'rgba(245,158,11,0.8)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width  = '10px';
+        cursor.style.height = '10px';
+        cursorRing.style.width  = '36px';
+        cursorRing.style.height = '36px';
+        cursorRing.style.borderColor = 'rgba(245,158,11,0.5)';
+      });
+    });
+
+    /* ── HEADER SCROLL STATE ── */
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* ── SCROLL PROGRESS ── */
+    const progressFill = document.getElementById('scroll-progress-fill');
+    function updateScrollProgress() {
+      const scrollTop  = window.scrollY;
+      const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+      const pct        = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressFill.style.height = pct + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+    /* ── FLOATING CTA SHOW/HIDE ── */
+    const floatingCta = document.getElementById('floating-cta');
+    window.addEventListener('scroll', () => {
+      floatingCta.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    /* ── VIDEO FRAME SCRUBBING ── */
+    const video   = document.getElementById('source-video');
+    const canvas  = document.getElementById('video-canvas');
+    const ctx     = canvas.getContext('2d');
+    const loadingScreen = document.getElementById('loading-screen');
+    const barFill = document.getElementById('loading-bar-fill');
+
+    let frames       = [];
+    let totalFrames  = 0;
+    let framesLoaded = 0;
+    let currentFrame = 0;
+    let targetFrame  = 0;
+    let isReady      = false;
+
+    function resizeCanvas() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+      if (isReady && frames[currentFrame]) {
+        ctx.drawImage(frames[currentFrame], 0, 0, canvas.width, canvas.height);
+      }
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function captureFrame(time) {
+      return new Promise((resolve) => {
+        const oc   = document.createElement('canvas');
+        oc.width   = video.videoWidth  || 1920;
+        oc.height  = video.videoHeight || 1080;
+        const octx = oc.getContext('2d');
+        const onSeeked = () => {
+          video.removeEventListener('seeked', onSeeked);
+          octx.drawImage(video, 0, 0, oc.width, oc.height);
+          resolve(oc);
+        };
+        video.addEventListener('seeked', onSeeked);
+        video.currentTime = time;
+      });
+    }
+
+    async function extractFrames() {
+      const duration  = video.duration;
+      const fps       = 24;
+      const rawCount  = Math.floor(duration * fps);
+      totalFrames     = Math.min(rawCount, 300);
+      frames          = new Array(totalFrames);
+
+      for (let i = 0; i < totalFrames; i++) {
+        const t   = (i / (totalFrames - 1)) * duration;
+        frames[i] = await captureFrame(t);
+        framesLoaded++;
+        barFill.style.width = Math.round((framesLoaded / totalFrames) * 100) + '%';
+      }
+
+      isReady = true;
+      onFramesReady();
+    }
+
+    function onFramesReady() {
+      if (frames[0]) ctx.drawImage(frames[0], 0, 0, canvas.width, canvas.height);
+      loadingScreen.classList.add('fade-out');
+      setTimeout(() => { loadingScreen.style.display = 'none'; }, 900);
+      initAnimations();
+      startRenderLoop();
+    }
+
+    function startRenderLoop() {
+      (function loop() {
+        requestAnimationFrame(loop);
+        if (!isReady) return;
+        if (currentFrame !== targetFrame) {
+          currentFrame += (targetFrame - currentFrame) * 0.22;
+          currentFrame  = Math.round(currentFrame);
+        }
+        const idx = Math.max(0, Math.min(totalFrames - 1, currentFrame));
+        if (frames[idx]) ctx.drawImage(frames[idx], 0, 0, canvas.width, canvas.height);
+      })();
+    }
+
+    function updateFrame() {
+      const heroEl     = document.getElementById('hero');
+      const heroHeight = heroEl.offsetHeight - window.innerHeight;
+      const scrollY    = window.scrollY - heroEl.offsetTop;
+      const progress   = Math.max(0, Math.min(1, scrollY / heroHeight));
+      targetFrame      = Math.round(progress * (totalFrames - 1));
+    }
+    window.addEventListener('scroll', updateFrame, { passive: true });
+
+    video.addEventListener('loadedmetadata', () => {
+      extractFrames().catch(console.error);
+    });
+    video.load();
+
+    /* ── GSAP ANIMATIONS ── */
+    function initAnimations() {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const hero  = document.getElementById('hero');
+      const heroH = hero.offsetHeight;
+      const winH  = window.innerHeight;
+      const pct   = (p) => hero.offsetTop + (heroH - winH) * p;
+
+      function fadeInOut(el, inStart, inEnd, outStart, outEnd) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: 'body',
+            start: () => `${pct(inStart)}px top`,
+            end:   () => `${pct(outEnd)}px top`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          }
+        });
+        const range = outEnd - inStart;
+        tl.to(el, { opacity: 1, duration: (inEnd - inStart) / range, ease: 'none' })
+          .to(el, { opacity: 1, duration: (outStart - inEnd) / range, ease: 'none' })
+          .to(el, { opacity: 0, duration: (outEnd - outStart) / range, ease: 'none' });
+      }
+
+      /* OV 1: ASSAM TEA title */
+      fadeInOut(document.getElementById('ov-title'), 0.03, 0.07, 0.12, 0.17);
+
+      /* OV 2: Ancient wisdom — word by word */
+      (function () {
+        const words = document.querySelectorAll('#ov-wisdom .word');
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: 'body',
+            start: () => `${pct(0.16)}px top`,
+            end:   () => `${pct(0.38)}px top`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          }
+        });
+        tl.to('#ov-wisdom', { opacity: 1, duration: 0.06 });
+        words.forEach((w, i) => {
+          tl.to(w, { opacity: 1, duration: 0.05 }, 0.06 + i * 0.05);
+        });
+        tl.to({}, { duration: 0.25 })
+          .to('#ov-wisdom', { opacity: 0, duration: 0.08 });
+      })();
+
+      /* OV 3: Centuries — slide in from right */
+      (function () {
+        const el = document.getElementById('ov-craft');
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: 'body',
+            start: () => `${pct(0.28)}px top`,
+            end:   () => `${pct(0.44)}px top`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          }
+        });
+        tl.to(el, { opacity: 1, x: 0, duration: 0.3, ease: 'none' })
+          .to(el, { opacity: 1, duration: 0.25 })
+          .to(el, { opacity: 0, duration: 0.2 });
+      })();
+
+      /* OV 4: Watch nature transform */
+      fadeInOut(document.getElementById('ov-nature'), 0.42, 0.47, 0.51, 0.56);
+
+      /* OV 5/6/7: Pour Wait Breathe */
+      (function () {
+        const wrap    = document.getElementById('ov-pour-wrap');
+        const pour    = document.getElementById('ov-pour');
+        const wait    = document.getElementById('ov-wait');
+        const breathe = document.getElementById('ov-breathe');
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: 'body',
+            start: () => `${pct(0.55)}px top`,
+            end:   () => `${pct(0.73)}px top`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          }
+        });
+        tl.to(wrap,    { opacity: 1, duration: 0.01 })
+          .to(pour,    { opacity: 1, duration: 0.08 })
+          .to({}, { duration: 0.06 })
+          .to(wait,    { opacity: 1, duration: 0.08 })
+          .to({}, { duration: 0.06 })
+          .to(breathe, { opacity: 1, duration: 0.08 })
+          .to({}, { duration: 0.18 })
+          .to(wrap,    { opacity: 0, duration: 0.1 });
+      })();
+
+      /* OV 8: Three minutes */
+      fadeInOut(document.getElementById('ov-minutes'), 0.70, 0.75, 0.79, 0.84);
+
+      /* OV 9: SEREN — character by character */
+      (function () {
+        const titleEl = document.getElementById('ov-seren-title');
+        const subEl   = document.getElementById('ov-seren-sub');
+        const wrap    = document.getElementById('ov-seren');
+
+        titleEl.innerHTML = 'SEREN.'.split('').map(c =>
+          `<span class="char">${c}</span>`
+        ).join('');
+        subEl.innerHTML = 'Steeped in silence.'.split('').map(c =>
+          c === ' ' ? '&nbsp;' : `<span class="char">${c}</span>`
+        ).join('');
+
+        const allChars = wrap.querySelectorAll('.char');
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: 'body',
+            start: () => `${pct(0.83)}px top`,
+            end:   () => `${pct(0.97)}px top`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          }
+        });
+        tl.to(wrap, { opacity: 1, duration: 0.02 });
+        allChars.forEach((c, i) => {
+          tl.to(c, { opacity: 1, duration: 0.03 }, 0.02 + i * 0.025);
+        });
+        tl.to({}, { duration: 0.15 })
+          .to(wrap, { opacity: 0, duration: 0.08 });
+      })();
+
+      /* OV 10: Begin ritual button */
+      (function () {
+        const el = document.getElementById('ov-ritual');
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: 'body',
+            start: () => `${pct(0.93)}px top`,
+            end:   () => `${pct(1.0)}px top`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          }
+        });
+        tl.to(el, { opacity: 1, duration: 0.3, ease: 'none' })
+          .to(el, { opacity: 1, duration: 0.7 });
+      })();
+
+      /* Collection cards slide in */
+      gsap.utils.toArray('.tea-card').forEach((card, i) => {
+        gsap.from(card, {
+          opacity: 0,
+          y: 60,
+          duration: 1.1,
+          delay: i * 0.18,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 88%',
+            toggleActions: 'play none none none',
+          }
+        });
+      });
+
+      /* Story stats count up */
+      gsap.utils.toArray('.story-stat-num').forEach(el => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 24,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          }
+        });
+      });
+
+      /* Newsletter title */
+      gsap.from('#newsletter-title', {
+        opacity: 0,
+        y: 34,
+        duration: 1.3,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '#newsletter',
+          start: 'top 78%',
+          toggleActions: 'play none none none',
+        }
+      });
+
+      /* DigiRise badge pulse on footer enter */
+      gsap.from('#digirise-badge', {
+        opacity: 0,
+        x: 24,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '#footer',
+          start: 'top 90%',
+          toggleActions: 'play none none none',
+        }
+      });
+    }
+
+  })();
+  </script>
+</body>
+</html>
